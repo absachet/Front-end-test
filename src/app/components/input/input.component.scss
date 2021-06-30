@@ -1,0 +1,41 @@
+@import "src/styles/colors";
+
+.container{
+    background: $darker 0% 0% no-repeat padding-box;
+    border-radius: 4px 4px 0px 0px;
+    width:126px;
+    height: 56px;
+    padding: 10px;
+
+    .text{
+        font-size: 12px;
+        letter-spacing: 0.4px;
+        width: 100%;
+        height: 50%;
+        color: $darkgrey;
+    }
+
+    input{
+        font-size: 16px;
+        letter-spacing: 0.15px;
+        background-color: $darker;
+        color: $lightgrey;
+        width: 100%;
+        height: 50%;
+        padding: 0;
+        border: 0;
+    }
+
+    &.lighter-mode{
+        background-color: $lightgrey;
+
+        .text{
+            color: $darkerkergrey;
+        }
+
+        input{
+            background-color: $lightgrey;
+            color: $black;
+        }
+    }
+}

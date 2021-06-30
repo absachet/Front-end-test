@@ -1,0 +1,40 @@
+<main [ngClass]="{ 'lighter-mode': !globals.darkMode }">
+    <app-menu></app-menu>
+    <section class="page-body">
+        <div class="content">
+            <section class="box">
+                <div class="row">
+                    <span class="title">Teste Audaces</span>
+                </div>
+                <div class="row">
+                    <span class="subtitle">Sequência:</span>
+                    <ng-template numbersInput></ng-template>
+                    <app-circle-button [class]="'plus'" (onClick)="addNewInput($event)"></app-circle-button>
+                </div>
+                <div class="row">
+                    <span class="subtitle">Target:</span>
+                    <app-input [inputValue]="target" (outputValue)="getTarget($event)"></app-input>
+                </div>
+                <div class="row btns">
+                    <app-button (onClick)="clearFields($event)" [label]="'limpar campos'"></app-button>
+                    <app-button (onClick)="combineFields($event)" [label]="'combinar'" [pink]="true"></app-button>
+                </div>
+            </section>
+            <section class="box">
+                <div class="row">
+                    <span class="title">Combinações Possíveis</span>
+                </div>
+                <div class="row row-center">
+                    <ng-template resultsInput></ng-template>
+                </div>
+            </section>
+            <section class="cards">
+                <app-card [label]="'entre em contato'" [class]="'image1'" [height]="'215px'"></app-card>
+                <app-card [label]="'redes sociais'" [class]="'image2'" [height]="'215px'"></app-card>
+            </section>
+        </div>
+        <div class="side">
+            <app-card [label]="'texto aqui'" [class]="'image3'" [height]="'100%'"></app-card>
+        </div>
+    </section>
+</main>

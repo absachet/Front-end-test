@@ -1,0 +1,115 @@
+@import "../styles/colors.scss";
+@import "../styles/utils.scss";
+
+main{
+    background: $darker 0% 0% no-repeat padding-box;
+    display: flex;
+    min-height: 100%;
+
+    .page-body{
+        min-height: calc(100% - 40px);
+        flex: 1;
+        padding: 20px 20px;
+        display: flex;
+        gap: 20px;
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+
+            .box{
+                background-color: $lightdark;
+                box-shadow: 0px 3px 6px $dark;
+                color: $lightgrey;
+                border-radius: 4px;
+                padding: 10px;
+
+                .row{
+                    padding: 10px 10px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+
+                    app-circle-button, span{
+                        align-self: center;
+                    }
+                    
+                    .title{
+                        font-size: 20px;
+                        letter-spacing: 0.15px;
+                    }
+
+                    .subtitle{
+                        width: 126px;
+                        font-size: 16px;
+                        letter-spacing: 0.12px;
+                        padding: 10px;
+                    }
+
+                    &.btns{
+                        display: block;
+                        text-align: right;
+
+                        app-button:last-child{
+                            margin-left: 20px;
+                        }
+                    }
+
+                    &.row-center{
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .cards{
+                display: flex;
+                flex-direction: row;
+                flex: 2;
+                gap: 20px;
+
+                app-card{
+                    flex: 1;
+                }
+            }
+        }
+
+        .side{
+            width: 230px;
+        }
+    }
+
+    &.lighter-mode{
+        background: $white;
+
+        .page-body{
+            .content{
+                .box{
+                    background-color: $white;
+                    color: $black;
+                }   
+            }
+        }
+    }
+
+    @media only screen and (max-width: $medium-width) {
+        .page-body{
+            display: block;
+
+            .side{
+                width: 100%;
+                height: 215px;
+                margin-top: 20px;
+            }
+        }
+    }
+
+    @media only screen and (max-width: $mobile-width) {
+        .page-body{
+            .cards{
+                display: block !important;
+            }
+        }
+    }
+}

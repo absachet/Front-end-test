@@ -1,0 +1,5 @@
+<div class="container" [ngClass]="{'lighter-mode': !globals.darkMode }">
+    <div class="text">{{label}}</div>
+    <input *ngIf="disabled; else notDisabled" type="number" disabled [value]="inputValue">
+    <ng-template #notDisabled><input type="number" (change)="onChange(input.value)" [value]="inputValue" #input></ng-template>
+</div>

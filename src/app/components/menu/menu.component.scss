@@ -1,0 +1,120 @@
+@import "src/styles/colors";
+@import "src/styles/utils.scss";
+
+:host{
+    .menu{
+        height: 100%;
+        width: 256px;
+        background: $lightdark 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 12px $dark;
+        position: relative;
+        color: $grey;
+
+        .logo-container{
+            padding: 30px 0 30px 20px;
+        }
+
+        .logo{
+            width: 170px;
+            height: 33px;
+            background-image: url("../../../assets/Audaces_logo.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li{
+                padding: 0;
+
+                a {
+                    padding: 12px 0px 12px 20px;
+                    z-index: 1;
+                    display: flex;
+                    align-items: center;
+                    transition: .3s ease color;
+                    position: relative;
+                    cursor: pointer;
+                    user-select: none;
+                    gap: 12px;
+
+                    &::after{
+                        content: '';
+                        width: 1px;
+                        height: 100%;
+                        top: 0;
+                        right: 0;
+                        z-index: -1;
+                        transition: .3s cubic-bezier(.28,.53,.35,.81) width;
+                        position: absolute;
+                    }
+
+                    &.active, &:hover{
+                        color: $pink;
+
+                        &::after{
+                            width: 100%;
+                            background: $lightpink;
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        &.lighter-mode{
+            background: $white;
+            color: $darkergrey;
+
+            .logo{
+                background-image: url("../../../assets/Audaces_logo_light.svg");
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            ul{
+                li{
+                    a{
+                        &.active, &:hover{
+                            color: $darkpink;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media only screen and (max-width: $medium-width) {
+            width: 210px;
+        }
+
+        @media only screen and (max-width: $min-width) {
+            width: 50px;
+            
+            .logo-container{
+                display: none;
+            }
+
+            ul{
+                li{
+                    a{
+                        gap: 0;
+                        padding: 10px;
+                        justify-content: center;
+                    }
+
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

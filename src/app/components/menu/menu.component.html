@@ -1,0 +1,25 @@
+<section class="menu" [ngClass]="{ 'lighter-mode': !globals.darkMode }">
+    <div class="logo-container">
+        <div class="logo"></div>
+    </div>
+    <div>
+        <ul>
+            <li *ngFor="let nav of navigations">
+                <a [class]="{ 'active': nav.active }">
+                    <img [src]="nav.icon">
+                    <span>{{nav.title}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        <ul>
+            <li *ngFor="let conf of configs">
+                <a [class]="{ 'active': conf.active }" (click)="conf.function($event)">
+                    <img [src]="conf.icon">
+                    <span>{{conf.title}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
