@@ -8,8 +8,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
 import { CircleButtonComponent } from './components/circle-button/circle-button.component';
 import { InputComponent } from './components/input/input.component';
-import { InputDirective } from './app.directives/input.directive';
-import { ResultDirective } from './app.directives/result.directive';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +16,11 @@ import { ResultDirective } from './app.directives/result.directive';
     ButtonComponent,
     CardComponent,
     CircleButtonComponent,
-    InputComponent,
-    InputDirective,
-    ResultDirective
+    InputComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     MenuModule,
   ],
   providers: [

@@ -1,6 +1,4 @@
 import { Component, ComponentFactoryResolver, ComponentRef, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { InputDirective } from './app.directives/input.directive';
-import { ResultDirective } from './app.directives/result.directive';
 import { InputComponent } from './components/input/input.component';
 import { Globals } from './services/globals';
 
@@ -11,11 +9,9 @@ import { Globals } from './services/globals';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-  @Input() inputs: InputComponent[] = [];
-  @ViewChild(InputDirective, { static: true }) inputsDiv!: InputDirective;
-  @ViewChild(ResultDirective, { static: true }) resultsDiv!: ResultDirective;
-
-  private values: string[] = [];
+  public inputs: InputComponent.Input[] = [];
+  public results: InputComponent.Input[] = [];
+  public values: string[] = [];
   public target: string = "";
 
   constructor(public globals: Globals, private componentFactoryResolver: ComponentFactoryResolver) {
@@ -35,15 +31,15 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   addInput(index: number) {
-    this.values.push("");
-    const lenght = this.values.length - 1;
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(InputComponent);
-
-    const viewContainerRef = this.inputsDiv.viewContainerRef;
-
-    const componentRef = viewContainerRef.createComponent<InputComponent>(componentFactory);
-    componentRef.instance.label = index + "° número";
-    componentRef.instance.outputValue.subscribe(o => this.values[lenght] = o);
+    this.inputs.push(
+      {
+        label: index + "° número",
+        output: (value: string, i: number) => {
+          this.values[i] = value;
+        },
+        input: ""
+      }
+    );
   }
 
   getTarget(val: string) {
@@ -51,19 +47,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   addNewInput(event: any) {
-    this.values.push("");
-    const lenght = this.values.length - 1;
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(InputComponent);
-
-    const viewContainerRef = this.inputsDiv.viewContainerRef;
-
-    const componentRef = viewContainerRef.createComponent<InputComponent>(componentFactory);
-    componentRef.instance.label = lenght + 1 + "° número";
-    componentRef.instance.outputValue.subscribe(o => this.values[lenght] = o);
+    this.addInput(this.inputs.length + 1);
   }
 
   combineFields(event: any) {
-    this.resultsDiv.viewContainerRef.clear();
+    this.results = [];
     let valOrdered = this.values.map(v => parseFloat(v)).sort((n1, n2) => n1 - n2).filter(n => !isNaN(n) && n > 0);
     let targetNum = parseFloat(this.target);
     let solution = [];
@@ -96,22 +84,28 @@ export class AppComponent implements OnInit, OnDestroy {
     let solOrdered = solution.sort((n1, n2) => n1 - n2);
 
     for (let s of solOrdered) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(InputComponent);
-
-      const viewContainerRef = this.resultsDiv.viewContainerRef;
-
-      const componentRef = viewContainerRef.createComponent<InputComponent>(componentFactory);
-      componentRef.instance.disabled = true;
-      componentRef.instance.inputValue = s.toString();
+      this.results.push({
+        label: "",
+        output: (value: string, i: number) => {
+        },
+        input: s.toString()
+      })
     }
   }
 
   clearFields(event: any) {
-    this.inputsDiv.viewContainerRef.clear();
-    this.resultsDiv.viewContainerRef.clear();
-    this.values = [];
+    this.inputs = [];
+    this.results = [];
     this.addInput(1);
     this.addInput(2);
     this.target = "";
+  }
+}
+
+export namespace InputComponent {
+  export interface Input {
+    label: string,
+    output: (value: string, index: number) => void,
+    input: string,
   }
 }

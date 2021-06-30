@@ -8,7 +8,9 @@
                 </div>
                 <div class="row">
                     <span class="subtitle">Sequência:</span>
-                    <ng-template numbersInput></ng-template>
+                    <div *ngFor="let input of inputs; let i = index">
+                        <app-input [label]="input.label" [inputValue]="input.input" (outputValue)="input.output($event, i)"></app-input>
+                    </div>
                     <app-circle-button [class]="'plus'" (onClick)="addNewInput($event)"></app-circle-button>
                 </div>
                 <div class="row">
@@ -25,7 +27,9 @@
                     <span class="title">Combinações Possíveis</span>
                 </div>
                 <div class="row row-center">
-                    <ng-template resultsInput></ng-template>
+                    <div *ngFor="let res of results">
+                        <app-input [label]="res.label" [disabled]="true" [inputValue]="res.input"></app-input>
+                    </div>
                 </div>
             </section>
             <section class="cards">
